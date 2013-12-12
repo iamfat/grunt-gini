@@ -26,7 +26,7 @@ module.exports = function(grunt) {
     function _bower(self) {
 
         // grunt.log.writeln('Merging')
-        var gini = grunt.config('gini');
+        var gini = grunt.file.readJSON('gini.json');
         var options = self.options();
 
         var bower = {
