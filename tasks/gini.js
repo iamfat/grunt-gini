@@ -52,27 +52,27 @@ module.exports = function(grunt) {
 
         var done = self.async();
         var exec = require('child_process').exec;
-        exec('gini app update-cache', function(error, stdout, stderr) {
+        exec('gini app cache', function(error, stdout, stderr) {
             
             grunt.log
-                .writeln().writeln('\x1b[1m😃  gini app update-cache\x1b[0m')
+                .writeln().writeln('\x1b[1m😃  gini app cache\x1b[0m')
                 .write(stdout).write(stderr);
             
             require('async').parallel([
                 function(callback){
-                    exec('gini app update-web', function(error, stdout, stderr) {
+                    exec('gini app update web', function(error, stdout, stderr) {
                         grunt.log
                             .writeln().writeln('\x1b[1m😃  gini app update-web\x1b[0m')
                             .write(stdout).write(stderr);
-                        callback(null, 'update-web');
+                        callback(null, 'update web');
                     });
                 },
                 function(callback){
-                    exec('gini app update-orm', function(error, stdout, stderr) {
+                    exec('gini app update orm', function(error, stdout, stderr) {
                         grunt.log
                             .writeln().writeln('\x1b[1m😃  gini app update-orm\x1b[0m')
                             .write(stdout).write(stderr);
-                        callback(null, 'update-orm');
+                        callback(null, 'update orm');
                     });
                 }
             ],
