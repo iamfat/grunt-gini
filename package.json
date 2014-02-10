@@ -1,7 +1,7 @@
 {
   "name": "grunt-gini",
   "description": "Grunt plugins for Gini PHP Framework",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "homepage": "https://github.com/iamfat/grunt-gini",
   "author": {
     "name": "Jia Huang",
