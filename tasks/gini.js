@@ -30,7 +30,7 @@ module.exports = function(grunt) {
         var options = self.options();
 
         var bower = {
-            name: gini.shortname,
+            name: gini.id.replace('-', '_'),
             version: gini.version,
             authors: gini.authors || [],
             license: "proprietary",
@@ -62,7 +62,7 @@ module.exports = function(grunt) {
                 function(callback){
                     exec('gini app update web', function(error, stdout, stderr) {
                         grunt.log
-                            .writeln().writeln('\x1b[1m😃  gini app update-web\x1b[0m')
+                            .writeln().writeln('\x1b[1m😃  gini app update web\x1b[0m')
                             .write(stdout).write(stderr);
                         callback(null, 'update web');
                     });
@@ -70,7 +70,7 @@ module.exports = function(grunt) {
                 function(callback){
                     exec('gini app update orm', function(error, stdout, stderr) {
                         grunt.log
-                            .writeln().writeln('\x1b[1m😃  gini app update-orm\x1b[0m')
+                            .writeln().writeln('\x1b[1m😃  gini app update orm\x1b[0m')
                             .write(stdout).write(stderr);
                         callback(null, 'update orm');
                     });
