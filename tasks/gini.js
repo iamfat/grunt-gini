@@ -52,37 +52,46 @@ module.exports = function(grunt) {
 
         var done = self.async();
         var exec = require('child_process').exec;
-        exec('gini app cache', function(error, stdout, stderr) {
-            
-            grunt.log
-                .writeln().writeln('\x1b[1m😃  gini app cache\x1b[0m')
-                .write(stdout).write(stderr);
-            
-            require('async').parallel([
-                function(callback){
-                    exec('gini app update web', function(error, stdout, stderr) {
-                        grunt.log
-                            .writeln().writeln('\x1b[1m😃  gini app update web\x1b[0m')
-                            .write(stdout).write(stderr);
-                        callback(null, 'update web');
-                    });
-                },
-                function(callback){
-                    exec('gini app update orm', function(error, stdout, stderr) {
-                        grunt.log
-                            .writeln().writeln('\x1b[1m😃  gini app update orm\x1b[0m')
-                            .write(stdout).write(stderr);
-                        callback(null, 'update orm');
-                    });
-                }
-            ],
-            // optional callback
-            function(err, results){
-                // the results array will equal ['one','two'] even though
-                // the second function had a shorter timeout.
-                done(err);
-            });
 
+        require('async').series([
+            function(callback){
+                exec('gini cache', function(error, stdout, stderr) {
+                    grunt.log
+                        .writeln().writeln('\x1b[1m😃  gini cache\x1b[0m')
+                        .write(stdout).write(stderr);            
+                    callback(null, 'cache');
+                });
+            },
+            function(callback){
+                exec('gini config update', function(error, stdout, stderr) {
+                    grunt.log
+                        .writeln().writeln('\x1b[1m😃  gini web update\x1b[0m')
+                        .write(stdout).write(stderr);
+                    callback(null, 'config update');
+                });
+            },
+            function(callback){
+                exec('gini web update', function(error, stdout, stderr) {
+                    grunt.log
+                        .writeln().writeln('\x1b[1m😃  gini web update\x1b[0m')
+                        .write(stdout).write(stderr);
+                    callback(null, 'web update');
+                });
+            },
+            function(callback){
+                exec('gini orm update', function(error, stdout, stderr) {
+                    grunt.log
+                        .writeln().writeln('\x1b[1m😃  gini orm update\x1b[0m')
+                        .write(stdout).write(stderr);
+                    callback(null, 'orm update');
+                });
+            }
+        ],
+        // optional callback
+        function(err, results){
+            // the results array will equal ['one','two'] even though
+            // the second function had a shorter timeout.
+            done(err);
         });
         
 
